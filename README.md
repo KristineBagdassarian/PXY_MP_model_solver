@@ -1,4 +1,6 @@
 # PXY_MP_model_solver
+This was written by Dr Natasha Savage and edited by Kristine Bagdassaria.
+
 Solver for the model 'A MP-PXY negative feedback loop may stabilize the auxin maxima in the cambium during secondary growth'
 
 This is a MATLAB code used to solve a system of equations to steady state. The system of equations describes the dynamics of auxin, cytokinin, PIN active transport, MP, PXY and TDIF. It is a reaction-diffusion system, thus the reaction and diffusion parts are solved separately. The reaction part is solved using the Euler method, while the diffusion part is solved using a modification to Euler which consists of a diffusion matrix. The output is a table with parameters on the lefthandside, three columns of 999 (for visual separation) and the obtained concentrations at steady state.
