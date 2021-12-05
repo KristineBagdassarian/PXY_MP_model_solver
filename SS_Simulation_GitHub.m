@@ -31,7 +31,7 @@ parameter_vector_begin=[AUXp,Fa, CKp, TDIF, d_Aux, d_PIN, ...
         dR=0.0000005;                %reaction increment
         Diff   = Dconst * [dt/dx1^2, dt/dx2^2, dt/dx3^2]; % Diffusion coefficient 
         %scaled for cell size and diffusion time step. 
-
+        counter=0;
         % Explicit Diffusion matrix.
         Hop = [1, 0, 0; Diff(1), (1-Diff(1)-Diff(2)), Diff(2);...
             0, Diff(2), 1-Diff(2)-Diff(3)];
@@ -48,6 +48,7 @@ parameter_vector_begin=[AUXp,Fa, CKp, TDIF, d_Aux, d_PIN, ...
         while atSS == 0   %while steady state is not achieved
 
             t=t+dt;
+             counter=counter+1;
             % Euler thing here
             [AUXc ,AUXx, CKc, CKx, PINc, PINx, MPc, MPx, PXYin, PXYa]=Euler_Function_GitHub(AUXp,...
                                         AUXc, AUXx, CKc, CKx, TDIF, PINc, PINx,...
@@ -64,6 +65,7 @@ parameter_vector_begin=[AUXp,Fa, CKp, TDIF, d_Aux, d_PIN, ...
                 %isnan
           end
              %% 
+            if(mod(counter,1/dt)==0) % take a snap shot every second
               % count number of consecutive sec mean distance below throshold 
               Conc_now = AUXc + AUXx + CKc + CKx + PINc + PINx + MPc + MPx + PXYin + PXYa;
 
@@ -81,5 +83,5 @@ parameter_vector_begin=[AUXp,Fa, CKp, TDIF, d_Aux, d_PIN, ...
 
                 Conc_old = Conc_now;
     
-          
+            end
         end
